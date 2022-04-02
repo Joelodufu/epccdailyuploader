@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Daily</title>
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="shortcut icon" href="./assets/epcclogog.png" type="image/x-icon">
+</head>
+
+<body>
+    <div class="container">
+        <div class="top">
+            <img src="./assets/epcclogog.png" alt="">
+            <h2>E.P.C.C. Daily Fire 🔥</h2>
+
+        </div>
+        <form action="">
+            <label for="topic">Topic</label>
+            <input type="text" id="topic" name="topic" placeholder="Enter Topic..">
+
+            <label for="bible">Bible verses</label>
+            <input type="text" id="verse" name="verse" placeholder="Type the bible reading verse..">
+
+            <label for="bibletext">Bible Texts</label>
+            <textarea name="bibletext" id="bibletext" cols="30" rows="10"
+                placeholder="Enter the Full Reading of the bible"></textarea>
+
+            <label for="insight">Insight</label>
+            <textarea name="insight" id="insight" placeholder="Enter the Insight you will like to share" cols="30"
+                rows="10"></textarea>
+
+            <label for="prayer">Prayer</label>
+            <textarea name="prayer" id="prayer" placeholder="Enter the Prayer Texts" cols="30" rows="10"></textarea>
+
+            <input type="button" value="Submit" id="btn">
+        </form>
+    </div>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+            apiKey: "AIzaSyCW1Crwhu96wUkNEgo5OzS-Yt2sc2JFHhk",
+            authDomain: "epccapp.firebaseapp.com",
+            projectId: "epccapp",
+            storageBucket: "epccapp.appspot.com",
+            messagingSenderId: "1001026726067",
+            appId: "1:1001026726067:web:32445ff0bd00b04742e8c6",
+            measurementId: "G-GVRWPTGLT3"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+
+        import {
+            getFirestore, doc,setDoc, getDoc, collection, updateDoc,addDoc, deleteDoc, deleteField
+        } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js"
+
+
+        const db = getFirestore();
+
+        let topic = document.getElementById("topic")
+        let verse = document.getElementById("verse")
+        let bibletext = document.getElementById("bibletext")
+        let insight = document.getElementById("insight")
+        let prayer = document.getElementById("prayer")
+        let button = document.getElementById("btn")
+
+        async function AddDociment() {
+            var ref = doc(db, "dailyFire","1");
+
+            const docRef = await setDoc(
+                ref, {
+                topic: topic.value,
+                bibleverse: verse.value,
+                bibletext: bibletext.value,
+                insight: insight.value,
+                prayer: prayer.value,
+
+            }
+            ).then(
+                () => {
+                    alert("data added")
+                }
+            ).catch(err => {
+                alert("error")
+            })
+        }
+
+        button.addEventListener('click', AddDociment)
+    </script>
+    <script src="./assets/js/app.js"></script>
+</body>
+
+</html>
